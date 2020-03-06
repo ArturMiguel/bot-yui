@@ -12,7 +12,7 @@ module.exports = async (moeda, message) => {
         const canvas = new Canvas.createCanvas(image.width, image.height)
         const context = canvas.getContext('2d')
         context.drawImage(image, 0, 0, canvas.width, canvas.height)
-        canvasText(`R$ ${moeda.buy}`, context, canvas)
+        canvasText(moeda.buy, context, canvas)
         const painel = new Discord.MessageEmbed()
             .setTitle(`Cotação para ${moeda.name}`)
             .setColor('#d3d3d3')

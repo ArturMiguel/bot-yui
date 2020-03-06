@@ -8,7 +8,7 @@ exports.usd = (message) => {
     request.get(hgFinance, async (err, res, data) => {
         const { USD } = (JSON.parse(data.toString())).results.currencies
         USD.name = 'Dólar'
-        USD.buy = parseFloat(USD.buy).toFixed(2)
+        USD.buy = formatCurrency(USD.buy)
         await image(USD, message)
     })
 }
@@ -17,7 +17,7 @@ exports.eur = (message) => {
     request.get(hgFinance, async (err, res, data) => {
         const { EUR } = (JSON.parse(data.toString())).results.currencies
         EUR.name = 'Euro'
-        EUR.buy = parseFloat(EUR.buy).toFixed(2)
+        EUR.buy = formatCurrency(EUR.buy)
         await image(EUR, message)
     })
 }
@@ -26,7 +26,7 @@ exports.gbp = (message) => {
     request.get(hgFinance, async (err, res, data) => {
         const { GBP } = (JSON.parse(data.toString())).results.currencies
         GBP.name = 'Libra Esterlina'
-        GBP.buy = parseFloat(GBP.buy).toFixed(2)
+        GBP.buy = formatCurrency(GBP.buy)
         await image(GBP, message)
     })
 }
@@ -35,7 +35,7 @@ exports.ars = (message) => {
     request.get(hgFinance, async (err, res, data) => {
         const { ARS } = (JSON.parse(data.toString())).results.currencies
         ARS.name = 'Peso Argentino'
-        ARS.buy = parseFloat(ARS.buy).toFixed(2)
+        ARS.buy = formatCurrency(ARS.buy)
         await image(ARS, message)
     })
 }
@@ -44,7 +44,12 @@ exports.btc = (message) => {
     request.get(hgFinance, async (err, res, data) => {
         const { BTC } = (JSON.parse(data.toString())).results.currencies
         BTC.name = 'Bitcoin'
-        BTC.buy = parseFloat(BTC.buy).toFixed(2)
+        BTC.buy = formatCurrency(BTC.buy)
         await image(BTC, message)
     })
+}
+
+
+function formatCurrency(c) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(c)
 }
