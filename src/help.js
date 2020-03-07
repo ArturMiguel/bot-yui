@@ -7,7 +7,6 @@ module.exports = (message) => {
         .addField('$euro', 'Cotação do euro (EUR)')
         .addField('$libra', 'Cotação da libra esterlina (GBP)')
         .addField('$peso', 'Cotação do peso argentino (ARS)')
-        .addField('$bitcoin', 'Cotação do bitcoin (BTC)')
         .setColor('#d3d3d3')
         .setFooter('https://github.com/ArturMiguel/discord-bot', 'https://github.com/fluidicon.png')
     message.channel.send(embed)

@@ -32,9 +32,6 @@ bot.on('message', async (message) => {
             case 'peso':
                 await cotacao.ars(message)
                 break
-            case 'bitcoin':
-                await cotacao.btc(message)
-                break
             default: break
         }
     }

@@ -25,7 +25,7 @@ module.exports = async (moeda, message) => {
 
 function randomImage() {
     return new Promise((resolve) => {
-        request.get('https://nekos.life/api/v2/img/eron', (err, res, data) => {
+        request.get('https://nekos.life/api/v2/img/neko', (err, res, data) => {
             const { url } = JSON.parse(data.toString())
             resolve(url)
         })

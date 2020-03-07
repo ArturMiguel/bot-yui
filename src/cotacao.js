@@ -40,16 +40,6 @@ exports.ars = (message) => {
     })
 }
 
-exports.btc = (message) => {
-    request.get(hgFinance, async (err, res, data) => {
-        const { BTC } = (JSON.parse(data.toString())).results.currencies
-        BTC.name = 'Bitcoin'
-        BTC.buy = formatCurrency(BTC.buy)
-        await image(BTC, message)
-    })
-}
-
-
 function formatCurrency(c) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(c)
 }
