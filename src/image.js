@@ -1,33 +1,29 @@
 const Discord = require('discord.js')
 const Canvas = require('canvas')
-const PixlRequest = require('pixl-request')
+const axios = require('axios')
+const cotacao = require('./cotacao')
+const NekosLife = require('nekos.life')
 
-const request = new PixlRequest()
+const neko = new NekosLife()
 
-module.exports = async (moeda, message) => {
-    const imgUrl = await randomImage()
-    request.get(imgUrl, (err, res, data) => {
+module.exports = async (code, message) => {
+    const cot = await cotacao(code)
+    const imgUrl = (await neko.sfw.neko()).url
+    axios.get(imgUrl, { responseType: 'arraybuffer' }).then((res) => {
         const image = new Canvas.Image()
-        image.src = data
+        image.src = Buffer.from(res.data, 'binary')
         const canvas = new Canvas.createCanvas(image.width, image.height)
         const context = canvas.getContext('2d')
         context.drawImage(image, 0, 0, canvas.width, canvas.height)
-        canvasText(moeda.buy, context, canvas)
-        const painel = new Discord.MessageEmbed()
-            .setTitle(`Cotação para ${moeda.name}`)
+        canvasText(cot.cotacaoCompra, context, canvas)
+        const embed = new Discord.MessageEmbed()
+            .setTitle(`${cot.descricao} (${code})`)
+            .setDescription(`[Imagem original](${imgUrl})`)
             .setColor('#d3d3d3')
-            .setImage('attachment://cotacao.png')
+            .setImage('attachment://cotacao.jpeg')
+            .setFooter(`Cotação: Dados abertos do Banco Central do Brasil\nData e horário da cotação: ${cot.dataHoraCotacao}`)
         message.channel.send({
-            embed: painel, files: [new Discord.MessageAttachment(canvas.toBuffer(), 'cotacao.png')]
-        })
-    })
-}
-
-function randomImage() {
-    return new Promise((resolve) => {
-        request.get('https://nekos.life/api/v2/img/neko', (err, res, data) => {
-            const { url } = JSON.parse(data.toString())
-            resolve(url)
+            embed: embed, files: [new Discord.MessageAttachment(canvas.toBuffer(), 'cotacao.jpeg')]
         })
     })
 }
@@ -38,7 +34,7 @@ function canvasText(text, context, canvas) {
     while (context.measureText(text).width > canvas.width) {
         context.font = `bold ${fontSize-= 10}px Arial`
     }
-    // Background
+    // Text Background
     context.fillStyle = '#8359A3'
     context.globalAlpha = 0.5
     context.fillRect(0, canvas.height / 2 - (fontSize * 50 / 100), canvas.width, fontSize)

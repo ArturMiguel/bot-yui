@@ -1,45 +1,22 @@
-const PixlRequest = require('pixl-request')
-const image = require('./image')
+const axios = require('axios')
+const moment = require('moment')
+const currencies = require('./currencies')
 
-const request = new PixlRequest()
-const hgFinance = `https://api.hgbrasil.com/finance?key=${process.env.HG_TOKEN}`
+moment.locale('pt-br')
 
-exports.usd = (message) => {
-    request.get(hgFinance, async (err, res, data) => {
-        const { USD } = (JSON.parse(data.toString())).results.currencies
-        USD.name = 'Dólar'
-        USD.buy = formatCurrency(USD.buy)
-        await image(USD, message)
-    })
+module.exports = async (code) => {
+    const { data } = await axios.get(url(code))
+    const last = data.value[data.value.length - 1]
+    last.descricao = currencies[code]
+    last.cotacaoCompra = new Intl.NumberFormat('pt-br', {
+        style: 'currency', currency: 'BRL' 
+    }).format(last.cotacaoCompra)
+    last.dataHoraCotacao = moment(last.dataHoraCotacao).format('DD/MM/YYYY [às] HH:mm:ss')
+    return last
 }
 
-exports.eur = (message) => {
-    request.get(hgFinance, async (err, res, data) => {
-        const { EUR } = (JSON.parse(data.toString())).results.currencies
-        EUR.name = 'Euro'
-        EUR.buy = formatCurrency(EUR.buy)
-        await image(EUR, message)
-    })
-}
-
-exports.gbp = (message) => {
-    request.get(hgFinance, async (err, res, data) => {
-        const { GBP } = (JSON.parse(data.toString())).results.currencies
-        GBP.name = 'Libra Esterlina'
-        GBP.buy = formatCurrency(GBP.buy)
-        await image(GBP, message)
-    })
-}
-
-exports.ars = (message) => {
-    request.get(hgFinance, async (err, res, data) => {
-        const { ARS } = (JSON.parse(data.toString())).results.currencies
-        ARS.name = 'Peso Argentino'
-        ARS.buy = formatCurrency(ARS.buy)
-        await image(ARS, message)
-    })
-}
-
-function formatCurrency(c) {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(c)
+function url(code) {
+    const iDate = moment().subtract('7', 'days').format('MM-DD-YYYY')
+    const fDate = moment().format('MM-DD-YYYY')
+    return `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaPeriodo(moeda=@moeda,dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@moeda='${code}'&@dataInicial='${iDate}'&@dataFinalCotacao='${fDate}'&$top=100&$format=json&$select=cotacaoCompra,dataHoraCotacao`
 }
