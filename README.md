@@ -42,12 +42,8 @@ PREFIX = "bot_prefix"
 | SEK | Coroa sueca |
 | USD | Dólar americano |
 
-#### Exemplos
-
-![](./assets/example.jpeg)
-
 ## *Sources*
 
-- Cotação: [Dados abertos do Banco Central do Brasil](https://dadosabertos.bcb.gov.br/dataset/dolar-americano-usd-todos-os-boletins-diarios).
+- Cotações: [Dados abertos do Banco Central do Brasil](https://dadosabertos.bcb.gov.br/dataset/dolar-americano-usd-todos-os-boletins-diarios).
 
 - Imagens: [Nekos.life](https://github.com/Nekos-life/nekos-dot-life).
