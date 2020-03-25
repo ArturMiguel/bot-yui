@@ -1,6 +1,6 @@
 # Bot Yui ユイ
 
-Bot para [Discord](https://discordapp.com/) que informa a cotação (em reais) de algumas moedas com *background* de anime.
+Bot para [Discord](https://discordapp.com/) que informa a cotação (em reais) de algumas moedas com imagens de anime.
 
 Clique [aqui](https://discordapp.com/api/oauth2/authorize?client_id=510838424161353731&permissions=149504&scope=bot) para convidar o bot para seu servidor.
 
@@ -18,10 +18,10 @@ Clique [aqui](https://discordapp.com/api/oauth2/authorize?client_id=510838424161
 # .env
 
 BOT_TOKEN = "bot_token"
-PREFIX = "bot_prefix"
+BOT_PREFIX = "bot_prefix"
 ```
 
-3) Digite `node .` para iniciar o bot.
+3) Digite `node .` para iniciar o bot. Caso queira disponibilizar seu bot em nuvem, recomendo a plataforma [Heroku](https://www.heroku.com/home).
 
 ## Utilização
 
