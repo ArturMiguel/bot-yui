@@ -2,11 +2,10 @@
 
 Bot para [Discord](https://discordapp.com/) que informa a cotação (em reais) de algumas moedas com imagens de anime.
 
-Clique [aqui](https://discordapp.com/api/oauth2/authorize?client_id=510838424161353731&permissions=149504&scope=bot) para convidar o bot para seu servidor.
 
 ## Requisitos
 
-- [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/) v12+
 - [Discord app/bot](https://discordapp.com/developers/applications)
 
 ## Instalação
@@ -17,8 +16,8 @@ Clique [aqui](https://discordapp.com/api/oauth2/authorize?client_id=510838424161
 ```
 # .env
 
-BOT_TOKEN = "bot_token"
-BOT_PREFIX = "bot_prefix"
+BOT_TOKEN = <bot_token>
+BOT_PREFIX = <bot_prefix>
 ```
 
 3) Digite `node .` para iniciar o bot. Caso queira disponibilizar seu bot em nuvem, recomendo a plataforma [Heroku](https://www.heroku.com/home).
