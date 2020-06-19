@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const currencies = require('./currencies')
 
-const prefix = process.env.BOT_PREFIX
+const prefix = '#'
 
 module.exports = (message) => {
     const embed = new Discord.MessageEmbed()
